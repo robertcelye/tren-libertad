@@ -1,0 +1,51 @@
+/* Estilos propios del Tren de la Libertad, encima de Bootstrap. */
+:root {
+    --tren-primario: #8b1e1e;      /* rojo ferroviario */
+    --tren-primario-oscuro: #6a1616;
+    --tren-acento: #d9a441;        /* dorado */
+    --tren-fondo: #f7f4ef;
+}
+
+body {
+    background-color: var(--tren-fondo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar-tren {
+    background-color: var(--tren-primario);
+}
+
+.btn-tren {
+    background-color: var(--tren-primario);
+    border-color: var(--tren-primario);
+    color: #fff;
+}
+
+.btn-tren:hover,
+.btn-tren:focus {
+    background-color: var(--tren-primario-oscuro);
+    border-color: var(--tren-primario-oscuro);
+    color: #fff;
+}
+
+.portada {
+    background: linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)), var(--tren-primario-oscuro);
+    color: #fff;
+    border-radius: .75rem;
+}
+
+.titulo-modulo {
+    color: var(--tren-primario);
+    font-weight: 600;
+}
+
+.pie {
+    background-color: #2b2b2b;
+    color: #ccc;
+}

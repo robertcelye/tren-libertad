@@ -42,6 +42,9 @@
                             {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><span class="dropdown-item-text small text-muted">{{ auth()->user()->rol?->nombre }}</span></li>
+                            <li><a class="dropdown-item" href="{{ route('panel') }}">Mi panel</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

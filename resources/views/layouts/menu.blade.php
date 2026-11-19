@@ -24,6 +24,16 @@
                 @if (Route::has('turismo.index'))
                     <li class="nav-item"><a class="nav-link" href="{{ route('turismo.index') }}">Turismo</a></li>
                 @endif
+
+                {{-- Opciones de administración: solo aparecen si el rol tiene el permiso (HU-05). --}}
+                @auth
+                    @if (auth()->user()->verificarPermiso('usuarios.crear_personal'))
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">Usuarios</a></li>
+                    @endif
+                    @if (auth()->user()->verificarPermiso('roles.permisos'))
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}" href="{{ route('roles.index') }}">Roles y permisos</a></li>
+                    @endif
+                @endauth
             </ul>
 
             <ul class="navbar-nav">

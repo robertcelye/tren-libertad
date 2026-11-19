@@ -10,8 +10,8 @@
             Reserva y compra tus boletos para la ruta Ibarra – Salinas sin intermediarios,
             y descubre la oferta turística y cultural de cada destino.
         </p>
-        @if (Route::has('viajes.index'))
-            <a href="{{ route('viajes.index') }}" class="btn btn-light btn-lg">Ver viajes disponibles</a>
+        @if (Route::has('viajes.disponibles'))
+            <a href="{{ route('viajes.disponibles') }}" class="btn btn-light btn-lg">Ver viajes disponibles</a>
         @else
             <span class="badge text-bg-warning">Venta en línea disponible próximamente</span>
         @endif

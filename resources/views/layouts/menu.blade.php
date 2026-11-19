@@ -18,8 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('inicio') ? 'active' : '' }}" href="{{ route('inicio') }}">Inicio</a>
                 </li>
-                @if (Route::has('viajes.index'))
-                    <li class="nav-item"><a class="nav-link" href="{{ route('viajes.index') }}">Viajes</a></li>
+                {{-- Consulta pública de viajes: aparece cuando exista la ruta de la HU-09 (Sprint 2). --}}
+                @if (Route::has('viajes.disponibles'))
+                    <li class="nav-item"><a class="nav-link" href="{{ route('viajes.disponibles') }}">Viajes</a></li>
                 @endif
                 @if (Route::has('turismo.index'))
                     <li class="nav-item"><a class="nav-link" href="{{ route('turismo.index') }}">Turismo</a></li>
@@ -27,6 +28,9 @@
 
                 {{-- Opciones de administración: solo aparecen si el rol tiene el permiso (HU-05). --}}
                 @auth
+                    @if (auth()->user()->verificarPermiso('rutas.gestionar'))
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('rutas.*', 'viajes.*', 'tarifas.*') ? 'active' : '' }}" href="{{ route('rutas.index') }}">Rutas y tarifas</a></li>
+                    @endif
                     @if (auth()->user()->verificarPermiso('usuarios.crear_personal'))
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">Usuarios</a></li>
                     @endif

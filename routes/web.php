@@ -4,7 +4,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistroController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\RutasController;
+use App\Http\Controllers\TarifasController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\ViajesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,5 +47,33 @@ Route::middleware('auth')->group(function () {
         Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
         Route::get('/roles/{rol}/editar', [RolesController::class, 'edit'])->name('roles.edit');
         Route::put('/roles/{rol}', [RolesController::class, 'update'])->name('roles.update');
+    });
+
+    // ---------- Módulo 2: Rutas, viajes y horarios ----------
+
+    // HU-06: rutas (operador ferroviario, administrador del sistema).
+    Route::middleware('permiso:rutas.gestionar')->group(function () {
+        Route::get('/gestion/rutas', [RutasController::class, 'index'])->name('rutas.index');
+        Route::get('/gestion/rutas/crear', [RutasController::class, 'create'])->name('rutas.create');
+        Route::post('/gestion/rutas', [RutasController::class, 'store'])->name('rutas.store');
+        Route::get('/gestion/rutas/{ruta}/editar', [RutasController::class, 'edit'])->name('rutas.edit');
+        Route::put('/gestion/rutas/{ruta}', [RutasController::class, 'update'])->name('rutas.update');
+    });
+
+    // HU-06 y HU-07: viajes, frecuencias, vagones y capacidad.
+    Route::middleware('permiso:viajes.gestionar')->group(function () {
+        Route::get('/gestion/rutas/{ruta}/viajes', [ViajesController::class, 'index'])->name('viajes.index');
+        Route::get('/gestion/rutas/{ruta}/viajes/programar', [ViajesController::class, 'create'])->name('viajes.create');
+        Route::post('/gestion/rutas/{ruta}/viajes', [ViajesController::class, 'store'])->name('viajes.store');
+        Route::get('/gestion/viajes/{viaje}/capacidad', [ViajesController::class, 'editCapacidad'])->name('viajes.capacidad');
+        Route::put('/gestion/viajes/{viaje}/capacidad', [ViajesController::class, 'updateCapacidad'])->name('viajes.capacidad.update');
+    });
+
+    // HU-08: tarifas (administrador del sistema).
+    Route::middleware('permiso:tarifas.gestionar')->group(function () {
+        Route::get('/gestion/rutas/{ruta}/tarifas', [TarifasController::class, 'index'])->name('tarifas.index');
+        Route::get('/gestion/rutas/{ruta}/tarifas/crear', [TarifasController::class, 'create'])->name('tarifas.create');
+        Route::post('/gestion/rutas/{ruta}/tarifas', [TarifasController::class, 'store'])->name('tarifas.store');
+        Route::patch('/gestion/tarifas/{tarifa}/desactivar', [TarifasController::class, 'desactivar'])->name('tarifas.desactivar');
     });
 });
